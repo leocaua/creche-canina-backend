@@ -1,6 +1,7 @@
 package br.com.creche.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,8 @@ public class Cliente implements UserDetails {
     private Long id;
     private String nome;
     private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
     private String endereco;
     private String contato;
@@ -46,7 +49,6 @@ public class Cliente implements UserDetails {
         this.email = email;
     }
 
-    @JsonIgnore
     public String getSenha() {
         return senha;
     }

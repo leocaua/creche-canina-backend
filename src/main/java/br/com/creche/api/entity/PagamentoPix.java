@@ -17,7 +17,7 @@ public class PagamentoPix {
 
     @OneToOne
     @JoinColumn(name = "agendamento_id")
-    private Agendamento agendamento;
+    private Matricula matricula;
 
     public Long getId() {
         return id;
@@ -47,10 +47,10 @@ public class PagamentoPix {
         this.valor = valor;
     }
 
-    public Agendamento getAgendamento() {
-        return agendamento;
+    public Matricula getAgendamento() {
+        return matricula;
     }
-    public void setAgendamento(Agendamento agendamento) {
-        this.agendamento = agendamento;
+    public void setAgendamento(Matricula matricula) {
+        this.matricula = matricula;
     }
 }

@@ -15,7 +15,7 @@ public class Rotina {
 
     @ManyToOne
     @JoinColumn(name = "agendamento_id")
-    private Agendamento agendamento;
+    private Matricula matricula;
 
     public Long getId() {
         return id;
@@ -38,10 +38,10 @@ public class Rotina {
         this.horario = horario;
     }
 
-    public Agendamento getAgendamento() {
-        return agendamento;
+    public Matricula getAgendamento() {
+        return matricula;
     }
-    public void setAgendamento(Agendamento agendamento) {
-        this.agendamento = agendamento;
+    public void setAgendamento(Matricula matricula) {
+        this.matricula = matricula;
     }
 }
