@@ -32,12 +32,25 @@ public class ClienteService {
     }
 
     public List<Cliente> listarTodos(){
+
         return clienteRepository.findAll();
     }
 
     public Cliente buscarPorId(Long id){
         clienteRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Id não encontrado"));
+
         return clienteRepository.findById(id).get();
+    }
+
+    public void redefinirSenha(String email, String novaSenha) {
+
+        Cliente cliente = clienteRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("E-mail não encontrado!"));
+
+        String senhaCriptografada = passwordEncoder.encode(novaSenha);
+        cliente.setSenha(senhaCriptografada);
+
+        clienteRepository.save(cliente);
     }
 }

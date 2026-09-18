@@ -41,6 +41,7 @@ public class SecurityConfigurations {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> {
                     authorizeRequests.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+                    authorizeRequests.requestMatchers(HttpMethod.PUT, "/clientes/esqueci-senha").permitAll();
                     authorizeRequests.requestMatchers("/login").permitAll();
                     authorizeRequests.requestMatchers("/clientes").permitAll();
                     authorizeRequests.requestMatchers("/planos").permitAll();
