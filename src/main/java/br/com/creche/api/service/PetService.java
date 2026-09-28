@@ -41,9 +41,13 @@ public class PetService {
         petExistente.setRaca(petComDadosNovos.getRaca());
         petExistente.setVacinado(petComDadosNovos.getVacinado());
         petExistente.setCastrado(petComDadosNovos.getCastrado());
+        petExistente.setCor(petComDadosNovos.getCor());
+        petExistente.setSexo(petComDadosNovos.getSexo());
+        petExistente.setPorte(petComDadosNovos.getPorte());
+        petExistente.setPeso(petComDadosNovos.getPeso());
+        petExistente.setFoto(petComDadosNovos.getFoto());
 
         return petRepository.save(petExistente);
-
     }
 
     public void deletarPet(Long id){
@@ -55,5 +59,9 @@ public class PetService {
                 .orElseThrow(() -> new RuntimeException("Id não encontrado"));
 
         return petRepository.save(petRepository.findById(id).get());
+    }
+
+    public List<Pet> buscarPorClienteId(Long clienteId) {
+        return petRepository.findByClienteId(clienteId);
     }
 }

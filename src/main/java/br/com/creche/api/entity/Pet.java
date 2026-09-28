@@ -9,11 +9,20 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private String raca;
+    private String cor;
+    private String sexo;
     private Integer idade;
+    private String porte;
+    private Double peso;
+
     private Boolean vacinado;
     private Boolean castrado;
+
+    @Column(columnDefinition = "TEXT")
+    private String foto;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
@@ -67,5 +76,40 @@ public class Pet {
     }
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public String getCor() {
+        return cor;
+    }
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getPorte() {
+        return porte;
+    }
+    public void setPorte(String porte) {
+        this.porte = porte;
+    }
+
+    public Double getPeso() {
+        return peso;
+    }
+    public void setPeso(Double peso) {
+        this.peso = peso;
     }
 }

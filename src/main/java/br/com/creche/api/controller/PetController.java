@@ -52,4 +52,11 @@ public class PetController {
         return
                 ResponseEntity.status(200).body(buscaRealizada);
     }
+
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<List<Pet>> buscarPorClienteId(@PathVariable Long clienteId){
+        List<Pet> petsDoCliente = petService.buscarPorClienteId(clienteId);
+
+        return ResponseEntity.status(200).body(petsDoCliente);
+    }
 }
