@@ -11,5 +11,6 @@ import java.util.List;
 public interface MatriculaRepository extends JpaRepository<Matricula, Long> {
 
     List<Matricula> findByDataReserva(LocalDate dataReserva);
+    List<Matricula> findByPetsClienteId(Long clienteId);
 
 }

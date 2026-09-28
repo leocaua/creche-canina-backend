@@ -89,4 +89,8 @@ public class MatriculaService {
 
         return capacidadeMaxima - matriculasNoDia;
     }
+
+    public List<Matricula> buscarPorClienteId(Long clienteId) {
+        return matriculaRepository.findByPetsClienteId(clienteId);
+    }
 }

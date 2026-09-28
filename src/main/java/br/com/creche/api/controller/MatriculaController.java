@@ -66,4 +66,11 @@ public class MatriculaController {
         return
                 ResponseEntity.status(200).body(buscaRealizada);
     }
+
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<List<Matricula>> buscarPorClienteId(@PathVariable Long clienteId){
+        List<Matricula> matriculasDoCliente = matriculaService.buscarPorClienteId(clienteId);
+
+        return ResponseEntity.status(200).body(matriculasDoCliente);
+    }
 }
