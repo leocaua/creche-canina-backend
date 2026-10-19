@@ -1,5 +1,6 @@
 package br.com.creche.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -23,42 +24,113 @@ public class Matricula {
     @ManyToMany
     @JoinTable
             (name = "matricula_pet",
-            joinColumns = @JoinColumn(name = "matricula_id"),
+                    joinColumns = @JoinColumn(name = "matricula_id"),
                     inverseJoinColumns = @JoinColumn(name = "pet_id"))
+
+    @JsonIgnoreProperties({"matriculas", "cliente", "rotinas", "hibernateLazyInitializer", "handler"})
     private List<Pet> pets;
 
     @ManyToOne
     @JoinColumn(name = "plano_id")
+    @JsonIgnoreProperties({"matriculas", "hibernateLazyInitializer", "handler"})
     private Plano plano;
 
     @OneToMany(mappedBy = "matricula")
-    @JsonIgnoreProperties("matricula")
+    @JsonIgnoreProperties({"matricula", "pets", "hibernateLazyInitializer", "handler"})
     private List<Rotina> rotinas;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
-    public LocalDate getDataReserva() { return dataReserva; }
-    public void setDataReserva(LocalDate dataReserva) { this.dataReserva = dataReserva; }
+    @Column(name = "status_diario")
+    private String statusDiario;
 
-    public Boolean getStatus() { return status; }
-    public void setStatus(Boolean status) { this.status = status; }
+    @Column(name = "data_status_diario")
+    private LocalDate dataStatusDiario;
 
-    public BigDecimal getValor() { return valor; }
-    public void setValor(BigDecimal valor) { this.valor = valor; }
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getDiasSemana() { return diasSemana; }
-    public void setDiasSemana(String diasSemana) { this.diasSemana = diasSemana; }
+    public LocalDate getDataReserva() {
+        return dataReserva;
+    }
+    public void setDataReserva(LocalDate dataReserva) {
+        this.dataReserva = dataReserva;
+    }
 
-    public Integer getFrequencia() { return frequencia; }
-    public void setFrequencia(Integer frequencia) { this.frequencia = frequencia; }
+    public Boolean getStatus() {
+        return status;
+    }
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
-    public List<Pet> getPets() { return pets; }
-    public void setPets(List<Pet> pets) { this.pets = pets; }
+    public BigDecimal getValor() {
+        return valor;
+    }
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
 
-    public Plano getPlano() { return plano; }
-    public void setPlano(Plano plano) { this.plano = plano; }
+    public String getDiasSemana() {
+        return diasSemana;
+    }
+    public void setDiasSemana(String diasSemana) {
+        this.diasSemana = diasSemana;
+    }
 
-    public List<Rotina> getRotinas() { return rotinas; }
-    public void setRotinas(List<Rotina> rotinas) { this.rotinas = rotinas; }
+    public Integer getFrequencia() {
+        return frequencia;
+    }
+    public void setFrequencia(Integer frequencia) {
+        this.frequencia = frequencia;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
+    }
+
+    public Plano getPlano() {
+        return plano;
+    }
+    public void setPlano(Plano plano) {
+        this.plano = plano;
+    }
+
+    public List<Rotina> getRotinas() {
+        return rotinas;
+    }
+    public void setRotinas(List<Rotina> rotinas) {
+        this.rotinas = rotinas;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getStatusDiario() {
+        return statusDiario;
+    }
+    public void setStatusDiario(String statusDiario) {
+        this.statusDiario = statusDiario;
+    }
+
+    public LocalDate getDataStatusDiario() {
+        return dataStatusDiario;
+    }
+    public void setDataStatusDiario(LocalDate dataStatusDiario) {
+        this.dataStatusDiario = dataStatusDiario;
+    }
 }
