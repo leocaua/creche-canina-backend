@@ -1,7 +1,7 @@
 package br.com.creche.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,12 +10,21 @@ public class Rotina {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(columnDefinition = "TEXT")
     private String descricao;
+
     private LocalDateTime horario;
 
     @ManyToOne
     @JoinColumn(name = "agendamento_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Matricula matricula;
+
+    @ManyToOne
+    @JoinColumn(name = "pet_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Pet pet;
 
     public Long getId() {
         return id;
@@ -38,10 +47,17 @@ public class Rotina {
         this.horario = horario;
     }
 
-    public Matricula getAgendamento() {
+    public Matricula getMatricula() {
         return matricula;
     }
-    public void setAgendamento(Matricula matricula) {
+    public void setMatricula(Matricula matricula) {
         this.matricula = matricula;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 }
