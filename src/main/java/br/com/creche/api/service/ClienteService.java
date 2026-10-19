@@ -2,6 +2,9 @@ package br.com.creche.api.service;
 
 import br.com.creche.api.entity.Cliente;
 import br.com.creche.api.repository.ClienteRepository;
+import br.com.creche.api.repository.MatriculaRepository;
+import br.com.creche.api.repository.NotificacaoRepository;
+import br.com.creche.api.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,15 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private PetRepository petRepository;
+
+    @Autowired
+    private MatriculaRepository matriculaRepository;
+
+    @Autowired
+    private NotificacaoRepository notificacaoRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -52,5 +64,18 @@ public class ClienteService {
         cliente.setSenha(senhaCriptografada);
 
         clienteRepository.save(cliente);
+    }
+
+    public void deletarCliente(Long id) {
+
+        if (!petRepository.findByClienteId(id).isEmpty()) {
+            throw new IllegalStateException("Este tutor possui pets cadastrados. Remova os pets antes de excluir o tutor.");
+        }
+
+        if (matriculaRepository.existsByCliente_Id(id) || !matriculaRepository.findByPetsClienteId(id).isEmpty()) {
+            throw new IllegalStateException("Este tutor possui matrículas vinculadas e não pode ser excluído.");
+        }
+        notificacaoRepository.deleteByClienteId(id);
+        clienteRepository.deleteById(id);
     }
 }

@@ -3,6 +3,7 @@ package br.com.creche.api.service;
 import br.com.creche.api.entity.Cliente;
 import br.com.creche.api.entity.Pet;
 import br.com.creche.api.repository.ClienteRepository;
+import br.com.creche.api.repository.MatriculaRepository;
 import br.com.creche.api.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,14 @@ public class PetService {
 
     @Autowired
     private PetRepository petRepository;
+
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public Pet cadastrarPet(Pet pet){
+    @Autowired
+    private MatriculaRepository matriculaRepository;
 
+    public Pet cadastrarPet(Pet pet){
         Long idDoCliente = pet.getCliente().getId();
         Cliente clienteCompleto = clienteRepository.findById(idDoCliente).get();
         pet.setCliente(clienteCompleto);
@@ -51,6 +55,9 @@ public class PetService {
     }
 
     public void deletarPet(Long id){
+        if (matriculaRepository.existsByPets_Id(id)) {
+            throw new IllegalStateException("Este pet possui matrícula vinculada e não pode ser excluído.");
+        }
         petRepository.deleteById(id);
     }
 

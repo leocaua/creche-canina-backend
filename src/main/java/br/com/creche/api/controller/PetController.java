@@ -8,49 +8,52 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(originPatterns = "*")
 @RestController
 @RequestMapping("/pets")
 
 public class PetController {
+
     @Autowired
     private PetService petService;
 
     @PostMapping
     public ResponseEntity<Pet> cadastrar(@RequestBody Pet pet){
-
         Pet petSalvo = petService.cadastrarPet(pet);
-        return
-                ResponseEntity.status(201).body(petSalvo);
+
+        return ResponseEntity.status(201).body(petSalvo);
 
     }
 
     @GetMapping
     public ResponseEntity<List<Pet>> listarTodosPets(){
-        return
-                ResponseEntity.status(200).body(petService.listarTodosPets());
+        return ResponseEntity.status(200).body(petService.listarTodosPets());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Pet> atualizarPet(@PathVariable Long id, @RequestBody Pet pet){
         Pet atualizarPet = petService.atualizarPet(id, pet);
-        return
-                ResponseEntity.status(200).body(atualizarPet);
+
+        return ResponseEntity.status(200).body(atualizarPet);
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarPet(@PathVariable Long id){
-        petService.deletarPet(id);
-        return
-                ResponseEntity.noContent().build();
+    public ResponseEntity<?> deletarPet(@PathVariable Long id){
+
+        try {
+            petService.deletarPet(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(409).body(e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Pet> buscarPorId(@PathVariable Long id){
         Pet buscaRealizada = petService.buscarPorId(id);
-        return
-                ResponseEntity.status(200).body(buscaRealizada);
+
+        return ResponseEntity.status(200).body(buscaRealizada);
     }
 
     @GetMapping("/cliente/{clienteId}")

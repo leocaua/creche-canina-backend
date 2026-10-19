@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(originPatterns = "*")
 @RestController
 @RequestMapping("/clientes")
 
@@ -21,25 +21,24 @@ public class ClienteController {
 
     @PostMapping
     public ResponseEntity<Cliente> cadastrar(@RequestBody Cliente cliente){
-
         Cliente clienteSalvo = clienteService.cadastrarCliente(cliente);
-        return
-                ResponseEntity.status(201).body(clienteSalvo);
+
+        return ResponseEntity.status(201).body(clienteSalvo);
 
     }
 
     @GetMapping
     public ResponseEntity<List<Cliente>> listarTodos(){
-
         List<Cliente> clientes = clienteService.listarTodos();
+
         return ResponseEntity.status(200).body(clientes);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> buscarPorId(@PathVariable Long id){
         Cliente buscaRealizada = clienteService.buscarPorId(id);
-        return
-                ResponseEntity.status(200).body(buscaRealizada);
+
+        return ResponseEntity.status(200).body(buscaRealizada);
     }
 
     @PutMapping("/esqueci-senha")
@@ -51,6 +50,16 @@ public class ClienteController {
 
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deletarCliente(@PathVariable Long id) {
+        try {
+            clienteService.deletarCliente(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 }
