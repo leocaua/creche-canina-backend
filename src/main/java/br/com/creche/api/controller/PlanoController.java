@@ -18,34 +18,33 @@ public class PlanoController {
     @PostMapping
     public ResponseEntity<Plano> criarPlano(@RequestBody Plano plano) {
         Plano novoPlano = planoService.criarPlano(plano);
-        return
-                ResponseEntity.status(201).body(novoPlano);
+
+        return ResponseEntity.status(201).body(novoPlano);
     }
 
     @GetMapping
     public ResponseEntity<List<Plano>> listarPlanos(){
-        return
-                ResponseEntity.status(200).body(planoService.listarPlanos());
+        return ResponseEntity.status(200).body(planoService.listarPlanos());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Plano> atualizarPlano(@PathVariable Long id, @RequestBody Plano plano) {
         Plano planoAtualizado = planoService.atualizarPlano(id, plano);
-        return
-                ResponseEntity.status(200).body(planoAtualizado);
+
+        return ResponseEntity.status(200).body(planoAtualizado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarPlano(@PathVariable Long id){
         planoService.deletarPlano(id);
-        return
-                ResponseEntity.noContent().build();
+
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Plano> buscarPlanoPorId(@PathVariable Long id){
         Plano buscaRealizada = planoService.buscarPorId(id);
-        return
-                ResponseEntity.status(200).body(buscaRealizada);
+
+        return ResponseEntity.status(200).body(buscaRealizada);
     }
 }

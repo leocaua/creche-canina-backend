@@ -27,7 +27,7 @@ public class AutenticacaoController {
         var authentication = authenticationManager.authenticate(tokenAutenticacao);
 
         var tokenJWT = tokenService.gerarToken((Cliente) authentication.getPrincipal());
-        return
-                ResponseEntity.ok(tokenJWT);
+
+        return ResponseEntity.ok(tokenJWT);
     }
 }

@@ -35,7 +35,6 @@ public class PlanoService {
                 .orElseThrow(() -> new RuntimeException("Plano não  encontrado"));
 
         planoRepository.deleteById(id);
-
     }
 
     public Plano buscarPorId(Long id){

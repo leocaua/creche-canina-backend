@@ -17,8 +17,7 @@ public class PagamentoController {
 
     @GetMapping
     public ResponseEntity<List<PagamentoPix>> listarPagamentos() {
-        return
-                ResponseEntity.ok(pagamentoService.listarPagamentoPix());
+        return ResponseEntity.ok(pagamentoService.listarPagamentoPix());
     }
 
     @PutMapping("/{id}/confirmar")
